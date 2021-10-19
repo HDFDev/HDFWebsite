@@ -18,7 +18,7 @@ $message = strip_tags(htmlspecialchars($_POST['message']));
 // if(!mail($to, $subject, $body, $header))
 //   http_response_code(500);
 
-  $connection = mysql_connect("localhost", "root", ""); // Establishing Connection with Server..
+  $connection = mysql_connect("localhost:3306", "root", "170623"); // Establishing Connection with Server..
 $db = mysql_select_db("healingd_queries", $connection); // Selecting Database
 //Fetching Values from URL
 //Insert query
