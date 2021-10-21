@@ -269,7 +269,7 @@
   $message = strip_tags(htmlspecialchars($_POST['message']));
   $servername = "localhost";
   $username = "root";
-  $password = "Test$123";
+  $password = "";
   $dbname = "healingd_queries";
 
 try {
