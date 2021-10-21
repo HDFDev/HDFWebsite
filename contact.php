@@ -284,6 +284,7 @@ if(isset($_POST['submit'])){
       success();
       </script>" ;
     } catch(PDOException $e) {
+        echo $e;
       echo "<script type='text/javascript'>
       error();
       </script>";
