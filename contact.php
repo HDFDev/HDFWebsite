@@ -143,41 +143,7 @@
             </div>
         </div>
         
-  <?php
-  if(empty($_POST['name']) || empty($_POST['subject']) || empty($_POST['message']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    http_response_code(500);
-    exit();
-  }
   
-  $name = strip_tags(htmlspecialchars($_POST['name']));
-  $email = strip_tags(htmlspecialchars($_POST['email']));
-  $subject = strip_tags(htmlspecialchars($_POST['subject']));
-  $message = strip_tags(htmlspecialchars($_POST['message']));
-  $servername = "localhost";
-$username = "root";
-$password = "170623";
-$dbname = "healingd_queries";
-
-try {
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  // set the PDO error mode to exception
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "insert into Queries(Name, Email, Subject, Message) values ('$name', '$email', '$subject','$message')";
-  // use exec() because no results are returned
-  $conn->exec($sql);
-  echo "<script>
-  success();
-    </script>" ;
-} catch(PDOException $e) {
-  echo "<script>
-  error();
-  </script>";
-}
-
-$conn = null;
-
-    
-  ?>
 
   
 
@@ -245,27 +211,6 @@ $conn = null;
 </div>
 <!-- Footer End -->
 
-<script>
-    function error(){
-    $('#success').html("<div class='alert alert-danger'>");
-                    $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                            .append("</button>");
-                    $('#success > .alert-danger').append($("<strong>").text("Sorry " + name + ", it seems that our mail server is not responding. Please try again later!"));
-                    $('#success > .alert-danger').append('</div>');
-                    $('#contactForm').trigger("reset");
-    }
-    function success(){
-        $('#success').html("<div class='alert alert-success'>");
-                    $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                            .append("</button>");
-                    $('#success > .alert-success')
-                            .append("<strong>Your message has been sent. </strong>");
-                    $('#success > .alert-success')
-                            .append('</div>');
-                    $('#contactForm').trigger("reset");
-    }
-    </script>
-
 <!-- Back to top button -->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
@@ -273,7 +218,6 @@ $conn = null;
 <div id="loader" class="show">
     <div class="loader"></div>
 </div>
-
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
@@ -289,5 +233,60 @@ $conn = null;
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
+<script>
+    function error(){
+    $('#success').html("<div class='alert alert-danger'>");
+                    $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                            .append("</button>");
+                    $('#success > .alert-danger').append($("<strong>").text("Sorry " + name + ", it seems that our mail server is not responding. Please try again later!"));
+                    $('#success > .alert-danger').append('</div>');
+                    $('#contactForm').trigger("reset");
+    }
+    function success() {
+        $('#success').html("<div class='alert alert-success'>");
+                    $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                            .append("</button>");
+                    $('#success > .alert-success')
+                            .append("<strong>Your message has been sent. </strong>");
+                    $('#success > .alert-success')
+                            .append('</div>');
+                    $('#contactForm').trigger("reset");
+    }
+</script>
 </body>
 </html>
+<?php
+  if(empty($_POST['name']) || empty($_POST['subject']) || empty($_POST['message']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    echo "<script type='text/javascript'>
+    error();
+    </script>";
+    exit();
+  }
+  
+  $name = strip_tags(htmlspecialchars($_POST['name']));
+  $email = strip_tags(htmlspecialchars($_POST['email']));
+  $subject = strip_tags(htmlspecialchars($_POST['subject']));
+  $message = strip_tags(htmlspecialchars($_POST['message']));
+  $servername = "localhost";
+  $username = "root";
+  $password = "Test$123";
+  $dbname = "healingd_queries";
+
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  // set the PDO error mode to exception
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $sql = "insert into Queries(Name, Email, Subject, Message) values ('$name', '$email', '$subject','$message')";
+  // use exec() because no results are returned
+  $conn->exec($sql);
+  echo "<script type='text/javascript'>
+  success();
+  </script>" ;
+} catch(PDOException $e) {
+  echo "<script type='text/javascript'>
+  error();
+  </script>";
+}
+
+$conn = null;   
+?>
