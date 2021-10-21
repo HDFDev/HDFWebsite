@@ -269,8 +269,8 @@ if(isset($_POST['submit'])){
       $subject = strip_tags(htmlspecialchars($_POST['subject']));
       $message = strip_tags(htmlspecialchars($_POST['message']));
       $servername = "localhost";
-      $username = "root";
-      $password = "";
+      $username = "healingd_database";
+      $password = "HDFData@123";
       $dbname = "healingd_queries";
     
     try {
