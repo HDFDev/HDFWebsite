@@ -118,30 +118,35 @@
                 </div>
                 <div class="contact-form">
                         <div id="success"></div>
-                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <form method="POST" name="sentMessage" id="contactForm">
                             <div class="control-group">
-                                <input type="text" class="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
+                                <input type="text" class="form-control" name="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="email" class="form-control" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
+                                <input type="email" class="form-control" name="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
+                                <input type="text" class="form-control" name="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <textarea class="form-control" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                                <textarea class="form-control" name="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div>
-                                <button class="btn btn-custom" type="submit" id="sendMessageButton">Send Message</button>
+                                <button class="btn btn-custom" type="submit" name="submit">Send Message</button>
                             </div>
                         </form>
                     </div>
             </div>
         </div>
+        
+  
+
+  
+
         <!-- Contact End -->
 
  <!-- Footer Start -->
@@ -213,7 +218,6 @@
 <div id="loader" class="show">
     <div class="loader"></div>
 </div>
-
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
@@ -225,9 +229,67 @@
 
 <!-- Contact Javascript File -->
 <script src="mail/jqBootstrapValidation.min.js"></script>
-<script src="mail/contact.js"></script>
+<!--<script src="mail/contact.js"></script>-->
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
+<script>
+    function error(){
+    $('#success').html("<div class='alert alert-danger'>");
+                    $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                            .append("</button>");
+                    $('#success > .alert-danger').append($("<strong>").text("Sorry " + name + ", it seems that our mail server is not responding. Please try again later!"));
+                    $('#success > .alert-danger').append('</div>');
+                    $('#contactForm').trigger("reset");
+    }
+    function success() {
+        $('#success').html("<div class='alert alert-success'>");
+                    $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                            .append("</button>");
+                    $('#success > .alert-success')
+                            .append("<strong>Your message has been sent. </strong>");
+                    $('#success > .alert-success')
+                            .append('</div>');
+                    $('#contactForm').trigger("reset");
+    }
+</script>
 </body>
 </html>
+<?php
+if(isset($_POST['submit'])){
+
+    if(empty($_POST['name']) || empty($_POST['subject']) || empty($_POST['message']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        echo "<script type='text/javascript'>
+        error();
+        </script>";
+        exit();
+      }
+      $name = strip_tags(htmlspecialchars($_POST['name']));
+      $email = strip_tags(htmlspecialchars($_POST['email']));
+      $subject = strip_tags(htmlspecialchars($_POST['subject']));
+      $message = strip_tags(htmlspecialchars($_POST['message']));
+      $servername = "localhost";
+      $username = "healingd_database";
+      $password = "HDFData@123";
+      $dbname = "healingd_queries";
+    
+    try {
+      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      // set the PDO error mode to exception
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "insert into Queries(Name, Email, Subject, Message) values ('$name', '$email', '$subject','$message')";
+      // use exec() because no results are returned
+      $conn->exec($sql);
+      echo "<script type='text/javascript'>
+      success();
+      </script>" ;
+    } catch(PDOException $e) {
+        echo $e;
+      echo "<script type='text/javascript'>
+      error();
+      </script>";
+    }
+
+}
+$conn = null;   
+?>

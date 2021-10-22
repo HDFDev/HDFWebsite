@@ -13,9 +13,9 @@ $(function () {
 
             $this = $("#sendMessageButton");
             $this.prop("disabled", true);
-
+            console.log(name, email, message, subject)
             $.ajax({
-                url: "contact.php",
+                url: "mail/contact.php",
                 type: "POST",
                 data: {
                     name: name,
