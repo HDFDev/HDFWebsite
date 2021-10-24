@@ -81,7 +81,7 @@
                             <a href="testimonials.html" class="dropdown-item">Testimonial</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                    <a href="contact.php" class="nav-item nav-link active">Contact</a>
                 </div>
             </div>
         </div>
@@ -256,6 +256,7 @@
 </body>
 </html>
 <?php
+require 'mail/PHPMailerAutoload.php';
 if(isset($_POST['submit'])){
 
     if(empty($_POST['name']) || empty($_POST['subject']) || empty($_POST['message']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -283,6 +284,38 @@ if(isset($_POST['submit'])){
       echo "<script type='text/javascript'>
       success();
       </script>" ;
+    $mail = new PHPMailer;
+
+    // $mail->SMTPDebug = 4;                               // Enable verbose debug output
+
+    $mail->isSMTP();                                      // Set mailer to use SMTP
+    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+    $mail->Username = "developer.hdf1@gmail.com";                 // SMTP username
+    $mail->Password = "Hdove_21Dev";                           // SMTP password
+    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+    $mail->Port = 587;                                    // TCP port to connect to
+
+    $mail->setFrom(EMAIL, 'Dsmart Tutorials');
+    $mail->addAddress($_POST['email']);     // Add a recipient
+
+    $mail->addReplyTo(EMAIL);
+    // print_r($_FILES['file']); exit;
+    for ($i=0; $i < count($_FILES['file']['tmp_name']) ; $i++) { 
+        $mail->addAttachment($_FILES['file']['tmp_name'][$i], $_FILES['file']['name'][$i]);    // Optional name
+    }
+    $mail->isHTML(true);                                  // Set email format to HTML
+
+    $mail->Subject = $_POST['subject'];
+    $mail->Body    = '<div style="border:2px solid red;">This is the HTML message body <b>in bold!</b></div>';
+    $mail->AltBody = $_POST['message'];
+
+    if(!$mail->send()) {
+        echo 'Message could not be sent.';
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
+    } else {
+        echo 'Message has been sent';
+    }
     } catch(PDOException $e) {
         echo $e;
       echo "<script type='text/javascript'>
