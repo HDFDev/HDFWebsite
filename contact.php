@@ -81,7 +81,7 @@
                             <a href="testimonials.html" class="dropdown-item">Testimonial</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                    <a href="contact.php" class="nav-item nav-link active">Contact</a>
                 </div>
             </div>
         </div>
@@ -118,7 +118,7 @@
                 </div>
                 <div class="contact-form">
                         <div id="success"></div>
-                        <form method="POST" name="sentMessage" id="contactForm" novalidate="novalidate" action= "<?php echo$_SERVER['PHP_SELF'];?>">
+                        <form method="POST" name="sentMessage" id="contactForm">
                             <div class="control-group">
                                 <input type="text" class="form-control" name="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
                                 <p class="help-block text-danger"></p>
@@ -136,48 +136,14 @@
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div>
-                                <button class="btn btn-custom" type="submit" name="sendMessageButton">Send Message</button>
+                                <button class="btn btn-custom" type="submit" name="submit">Send Message</button>
                             </div>
                         </form>
                     </div>
             </div>
         </div>
         
-  <?php
-  if(empty($_POST['name']) || empty($_POST['subject']) || empty($_POST['message']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    http_response_code(500);
-    exit();
-  }
   
-  $name = strip_tags(htmlspecialchars($_POST['name']));
-  $email = strip_tags(htmlspecialchars($_POST['email']));
-  $subject = strip_tags(htmlspecialchars($_POST['subject']));
-  $message = strip_tags(htmlspecialchars($_POST['message']));
-  $servername = "localhost";
-$username = "root";
-$password = "170623";
-$dbname = "healingd_queries";
-
-try {
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  // set the PDO error mode to exception
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "insert into Queries(Name, Email, Subject, Message) values ('$name', '$email', '$subject','$message')";
-  // use exec() because no results are returned
-  $conn->exec($sql);
-  echo "<script>
-  success();
-    </script>" ;
-} catch(PDOException $e) {
-  echo "<script>
-  error();
-  </script>";
-}
-
-$conn = null;
-
-    
-  ?>
 
   
 
@@ -245,27 +211,6 @@ $conn = null;
 </div>
 <!-- Footer End -->
 
-<script>
-    function error(){
-    $('#success').html("<div class='alert alert-danger'>");
-                    $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                            .append("</button>");
-                    $('#success > .alert-danger').append($("<strong>").text("Sorry " + name + ", it seems that our mail server is not responding. Please try again later!"));
-                    $('#success > .alert-danger').append('</div>');
-                    $('#contactForm').trigger("reset");
-    }
-    function success(){
-        $('#success').html("<div class='alert alert-success'>");
-                    $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                            .append("</button>");
-                    $('#success > .alert-success')
-                            .append("<strong>Your message has been sent. </strong>");
-                    $('#success > .alert-success')
-                            .append('</div>');
-                    $('#contactForm').trigger("reset");
-    }
-    </script>
-
 <!-- Back to top button -->
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
@@ -273,7 +218,6 @@ $conn = null;
 <div id="loader" class="show">
     <div class="loader"></div>
 </div>
-
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
@@ -289,5 +233,96 @@ $conn = null;
 
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
+<script>
+    function error(){
+    $('#success').html("<div class='alert alert-danger'>");
+                    $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                            .append("</button>");
+                    $('#success > .alert-danger').append($("<strong>").text("Sorry " + name + ", it seems that our mail server is not responding. Please try again later!"));
+                    $('#success > .alert-danger').append('</div>');
+                    $('#contactForm').trigger("reset");
+    }
+    function success() {
+        $('#success').html("<div class='alert alert-success'>");
+                    $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                            .append("</button>");
+                    $('#success > .alert-success')
+                            .append("<strong>Your message has been sent. </strong>");
+                    $('#success > .alert-success')
+                            .append('</div>');
+                    $('#contactForm').trigger("reset");
+    }
+</script>
 </body>
 </html>
+<?php
+require 'mail/PHPMailerAutoload.php';
+if(isset($_POST['submit'])){
+
+    if(empty($_POST['name']) || empty($_POST['subject']) || empty($_POST['message']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        echo "<script type='text/javascript'>
+        error();
+        </script>";
+        exit();
+      }
+      $name = strip_tags(htmlspecialchars($_POST['name']));
+      $email = strip_tags(htmlspecialchars($_POST['email']));
+      $subject = strip_tags(htmlspecialchars($_POST['subject']));
+      $message = strip_tags(htmlspecialchars($_POST['message']));
+      $servername = "localhost";
+      $username = "healingd_database";
+      $password = "HDFData@123";
+      $dbname = "healingd_queries";
+    
+    try {
+      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      // set the PDO error mode to exception
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "insert into Queries(Name, Email, Subject, Message) values ('$name', '$email', '$subject','$message')";
+      // use exec() because no results are returned
+      $conn->exec($sql);
+      echo "<script type='text/javascript'>
+      success();
+      </script>" ;
+    $mail = new PHPMailer;
+
+    // $mail->SMTPDebug = 4;                               // Enable verbose debug output
+
+    $mail->isSMTP();                                      // Set mailer to use SMTP
+    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+    $mail->Username = "developer.hdf1@gmail.com";                 // SMTP username
+    $mail->Password = "Hdove_21Dev";                           // SMTP password
+    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+    $mail->Port = 587;                                    // TCP port to connect to
+
+    $mail->setFrom(EMAIL, 'Dsmart Tutorials');
+    $mail->addAddress($_POST['email']);     // Add a recipient
+
+    $mail->addReplyTo(EMAIL);
+    // print_r($_FILES['file']); exit;
+    for ($i=0; $i < count($_FILES['file']['tmp_name']) ; $i++) { 
+        $mail->addAttachment($_FILES['file']['tmp_name'][$i], $_FILES['file']['name'][$i]);    // Optional name
+    }
+    $mail->isHTML(true);                                  // Set email format to HTML
+
+    $mail->Subject = $_POST['subject'];
+    $mail->Body    = '<div style="border:2px solid red;">This is the HTML message body <b>in bold!</b></div>';
+    $mail->AltBody = $_POST['message'];
+
+    if(!$mail->send()) {
+        echo 'Message could not be sent.';
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
+    } else {
+        echo 'Message has been sent';
+    }
+    } catch(PDOException $e) {
+        echo $e;
+      echo "<script type='text/javascript'>
+      error();
+      </script>";
+    }
+
+}
+$conn = null;   
+?>
