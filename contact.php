@@ -285,8 +285,7 @@ if(isset($_POST['submit'])){
       success();
       </script>" ;
       $msg = "Name: '$name' \nEmail: '$email' \nSubject: '$subject' \nMessage: '$message' " ;
-      mail("nitinagar007@gmail.com",$subject,$msg);
-      mail($email,$subject,"Your Query has been sent to us. We will get back to you.");
+      mail("varundutia.h@gmail.com",$subject,$msg);
    
     } catch(PDOException $e) {
         echo $e;
