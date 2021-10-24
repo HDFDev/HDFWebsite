@@ -284,8 +284,9 @@ if(isset($_POST['submit'])){
       echo "<script type='text/javascript'>
       success();
       </script>" ;
-      $msg = "First line of text\nSecond line of text";
-      mail("mailer@healingdovefoundation.org","My subject",$msg);
+      $msg = "Name: '$name' \nEmail: '$email' \nSubject: '$subject' \nMessage: '$message' " ;
+      mail("nitinagar007@gmail.com",$subject,$msg);
+      mail($email,$subject,"Your Query has been sent to us. We will get back to you.");
    
     } catch(PDOException $e) {
         echo $e;
