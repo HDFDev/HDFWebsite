@@ -81,7 +81,7 @@
                             <a href="testimonials.html" class="dropdown-item">Testimonial</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                    <a href="contact.php" class="nav-item nav-link active">Contact</a>
                 </div>
             </div>
         </div>
@@ -256,8 +256,7 @@
 </body>
 </html>
 <?php
-require 'PHPMailerAutoload.php';
-require 'credential.php';
+require 'mail/PHPMailerAutoload.php';
 if(isset($_POST['submit'])){
 
     if(empty($_POST['name']) || empty($_POST['subject']) || empty($_POST['message']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -292,8 +291,8 @@ if(isset($_POST['submit'])){
     $mail->isSMTP();                                      // Set mailer to use SMTP
     $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                               // Enable SMTP authentication
-    $mail->Username = EMAIL;                 // SMTP username
-    $mail->Password = PASS;                           // SMTP password
+    $mail->Username = "developer.hdf1@gmail.com";                 // SMTP username
+    $mail->Password = "Hdove_21Dev";                           // SMTP password
     $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 587;                                    // TCP port to connect to
 
