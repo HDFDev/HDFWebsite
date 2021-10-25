@@ -285,7 +285,7 @@ if(isset($_POST['submit'])){
       success();
       </script>" ;
       $msg = "Name: '$name' \nEmail: '$email' \nSubject: '$subject' \nMessage: '$message' " ;
-      mail("nitinagar007@gmail.com",$subject,$msg);
+      mail("healingdovefoundation@gmail.com",$subject,$msg);
    
     } catch(PDOException $e) {
         echo $e;
