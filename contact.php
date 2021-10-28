@@ -2,16 +2,16 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Contact_HDF</title>
+        <title>Contact-HDF</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free Website Template" name="keywords">
         <meta content="Free Website Template" name="description">
 
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
+        <link href="img/HDF logo .png" rel="icon">
 
         <!-- Google Font -->
-        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.google.com/speciman/roboto" rel="stylesheet">
         
         <!-- CSS Libraries -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -57,36 +57,38 @@
     </div>
     <!-- Top Bar End -->
 
-    <!-- Nav Bar Start -->
-    <div class="navbar navbar-expand-lg bg-dark navbar-dark">
-        <div class="container-fluid">
-            <img class="navbar-img" src="img/HDF logo .png" alt="Image" style="height: 100px; width: 100px; padding: 10px;">
-            <a href="index.html" class="navbar-brand">Healing Dove Foundation</a><br>
-            <button type="button" class="navbar-toggler bg-dark" data-toggle="collapse" data-target="#navbarCollapse" >
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    
+        <!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <img class="navbar-img" src="img/HDF logo .png" alt="Image" style="height: 100px; width: 100px; padding: 10px;">
+                <a href="index.html" class="navbar-brand">Healing Dove Foundation</a><br>
+                <button type="button" class="navbar-toggler bg-dark" data-toggle="collapse" data-target="#navbarCollapse" >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                <div class="navbar-nav ml-auto">
-                    <a href="index.html" class="nav-item nav-link ">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="causes.html" class="nav-item nav-link">Work We Do</a>
-                    
-                    <a href="get-involved.html" class="nav-item nav-link">Get Involved</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu">
-                            <a href="multimedia.html" class="dropdown-item">Multimedia</a>
-                            <a href="blog.html" class="dropdown-item">Blogs</a>
-                            <a href="testimonials.html" class="dropdown-item">Testimonial</a>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <a href="index.html" class="nav-item nav-link ">Home</a>
+                        <a href="about.html" class="nav-item nav-link">About</a>
+                        <a href="causes.html" class="nav-item nav-link">Work We Do</a>
+                        
+                        <a href="get-involved.html" class="nav-item nav-link">Get Involved</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu">
+                                <a href="features.html" class="dropdown-item">Feature Gallery</a>
+                                <a href="multimedia.html" class="dropdown-item">Multimedia</a>
+                                <a href="blog.html" class="dropdown-item">Blogs</a>
+                                <a href="testimonials.html" class="dropdown-item">Testimonial</a>
+                            </div>
                         </div>
+                        <a href="contact.php" class="nav-item nav-link active">Contact</a>
                     </div>
-                    <a href="contact.php" class="nav-item nav-link active">Contact</a>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Nav Bar End -->
+        <!-- Nav Bar End -->
         
         <!-- Page Header Start -->
         <div class="page-header">
@@ -113,9 +115,7 @@
                     <p>Get In Touch</p>
                     <h2>Contact for any query</h2>
                 </div>
-                <div class="contact-img">
-                    <img src="img/contact.jpg" alt="Image">
-                </div>
+                
                 <div class="contact-form">
                         <div id="success"></div>
                         <form method="POST" name="sentMessage" id="contactForm">
@@ -153,7 +153,7 @@
  <div class="footer">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-5 col-md-6">
                 <div class="footer-contact">
                     <h2>Our Head Office</h2>
                     <p><i class="fa fa-map-marker-alt"></i>2, Floor-Grd, Plot-37, Keni Apartment, Lt. Dilip Gupte Marg, Shivaji Park, Mahim, Mumbai-400016</p>
@@ -168,7 +168,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="footer-link">
                     <h2>Popular Links</h2>
                     <a href="">About Us</a>
@@ -183,27 +183,18 @@
                     <h2>Useful Links</h2>
                     <a href="">Terms of use</a>
                     <a href="">Privacy policy</a>
-                    <a href="">Cookies</a>
+                  
                     <a href="">Help</a>
-                    <a href="">FQAs</a>
+                    
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-newsletter">
-                    <h2>Newsletter</h2>
-                    <form>
-                        <input class="form-control" placeholder="Email goes here">
-                        <button class="btn btn-custom">Submit</button>
-                        <label>Don't worry, we don't spam!</label>
-                    </form>
-                </div>
-            </div>
+          
         </div>
     </div>
     <div class="container copyright">
         <div class="row">
             <div class="col-md-6">
-                <p>&copy; <a href="#">healing Dove Foundation</a>, All Right Reserved.</p>
+                <p>&copy; <a href="#">healing Dove Foundation</a>, All Rights Reserved.</p>
             </div>
             <div></div>
         </div>
